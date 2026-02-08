@@ -104,6 +104,7 @@ exports.Prisma.BuildingsScalarFieldEnum = {
   materialsFileName: 'materialsFileName',
   screenshotDataUrl: 'screenshotDataUrl',
   materials: 'materials',
+  checklist: 'checklist',
   createdAt: 'createdAt'
 };
 
@@ -183,8 +184,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider   = \"prisma-client-js\"\n  output     = \"../generated/prisma\"\n  engineType = \"client\" // enable Prisma ORM without Rust\n}\n\nmodel Buildings {\n  id                String   @id @default(cuid())\n  name              String\n  x                 Int\n  y                 Int\n  z                 Int\n  schematicFileName String\n  materialsFileName String\n  screenshotDataUrl String?\n  materials         Json\n  createdAt         DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "fd9faa97f6c7b072b4ac2cf2c283cefcf14f31b7c492ca5a6490e3669d1302f6",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider   = \"prisma-client-js\"\n  output     = \"../generated/prisma\"\n  engineType = \"client\" // enable Prisma ORM without Rust\n}\n\nmodel Buildings {\n  id                String   @id @default(cuid())\n  name              String\n  x                 Int\n  y                 Int\n  z                 Int\n  schematicFileName String\n  materialsFileName String\n  screenshotDataUrl String?\n  materials         Json // Исходный список ресурсов (статичный)\n  checklist         Json     @default(\"[]\") // Текущий прогресс (динамичный)\n  createdAt         DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "df8f6ee3fe827c1ea1c547b07eba49af5494ca9467ebead08644d7816e500d80",
   "copyEngine": true
 }
 
@@ -205,7 +206,7 @@ if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   config.isBundled = true
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Buildings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"x\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"y\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"z\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"schematicFileName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materialsFileName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"screenshotDataUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materials\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Buildings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"x\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"y\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"z\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"schematicFileName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materialsFileName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"screenshotDataUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materials\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"checklist\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = {

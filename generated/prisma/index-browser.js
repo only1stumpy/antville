@@ -131,6 +131,7 @@ exports.Prisma.BuildingsScalarFieldEnum = {
   materialsFileName: 'materialsFileName',
   screenshotDataUrl: 'screenshotDataUrl',
   materials: 'materials',
+  checklist: 'checklist',
   createdAt: 'createdAt'
 };
 

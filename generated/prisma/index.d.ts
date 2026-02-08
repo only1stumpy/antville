@@ -919,6 +919,7 @@ export namespace Prisma {
     materialsFileName: number
     screenshotDataUrl: number
     materials: number
+    checklist: number
     createdAt: number
     _all: number
   }
@@ -970,6 +971,7 @@ export namespace Prisma {
     materialsFileName?: true
     screenshotDataUrl?: true
     materials?: true
+    checklist?: true
     createdAt?: true
     _all?: true
   }
@@ -1070,6 +1072,7 @@ export namespace Prisma {
     materialsFileName: string
     screenshotDataUrl: string | null
     materials: JsonValue
+    checklist: JsonValue
     createdAt: Date
     _count: BuildingsCountAggregateOutputType | null
     _avg: BuildingsAvgAggregateOutputType | null
@@ -1102,6 +1105,7 @@ export namespace Prisma {
     materialsFileName?: boolean
     screenshotDataUrl?: boolean
     materials?: boolean
+    checklist?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["buildings"]>
 
@@ -1115,6 +1119,7 @@ export namespace Prisma {
     materialsFileName?: boolean
     screenshotDataUrl?: boolean
     materials?: boolean
+    checklist?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["buildings"]>
 
@@ -1128,6 +1133,7 @@ export namespace Prisma {
     materialsFileName?: boolean
     screenshotDataUrl?: boolean
     materials?: boolean
+    checklist?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["buildings"]>
 
@@ -1141,10 +1147,11 @@ export namespace Prisma {
     materialsFileName?: boolean
     screenshotDataUrl?: boolean
     materials?: boolean
+    checklist?: boolean
     createdAt?: boolean
   }
 
-  export type BuildingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "x" | "y" | "z" | "schematicFileName" | "materialsFileName" | "screenshotDataUrl" | "materials" | "createdAt", ExtArgs["result"]["buildings"]>
+  export type BuildingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "x" | "y" | "z" | "schematicFileName" | "materialsFileName" | "screenshotDataUrl" | "materials" | "checklist" | "createdAt", ExtArgs["result"]["buildings"]>
 
   export type $BuildingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Buildings"
@@ -1159,6 +1166,7 @@ export namespace Prisma {
       materialsFileName: string
       screenshotDataUrl: string | null
       materials: Prisma.JsonValue
+      checklist: Prisma.JsonValue
       createdAt: Date
     }, ExtArgs["result"]["buildings"]>
     composites: {}
@@ -1592,6 +1600,7 @@ export namespace Prisma {
     readonly materialsFileName: FieldRef<"Buildings", 'String'>
     readonly screenshotDataUrl: FieldRef<"Buildings", 'String'>
     readonly materials: FieldRef<"Buildings", 'Json'>
+    readonly checklist: FieldRef<"Buildings", 'Json'>
     readonly createdAt: FieldRef<"Buildings", 'DateTime'>
   }
     
@@ -1983,6 +1992,7 @@ export namespace Prisma {
     materialsFileName: 'materialsFileName',
     screenshotDataUrl: 'screenshotDataUrl',
     materials: 'materials',
+    checklist: 'checklist',
     createdAt: 'createdAt'
   };
 
@@ -2120,6 +2130,7 @@ export namespace Prisma {
     materialsFileName?: StringFilter<"Buildings"> | string
     screenshotDataUrl?: StringNullableFilter<"Buildings"> | string | null
     materials?: JsonFilter<"Buildings">
+    checklist?: JsonFilter<"Buildings">
     createdAt?: DateTimeFilter<"Buildings"> | Date | string
   }
 
@@ -2133,6 +2144,7 @@ export namespace Prisma {
     materialsFileName?: SortOrder
     screenshotDataUrl?: SortOrderInput | SortOrder
     materials?: SortOrder
+    checklist?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -2149,6 +2161,7 @@ export namespace Prisma {
     materialsFileName?: StringFilter<"Buildings"> | string
     screenshotDataUrl?: StringNullableFilter<"Buildings"> | string | null
     materials?: JsonFilter<"Buildings">
+    checklist?: JsonFilter<"Buildings">
     createdAt?: DateTimeFilter<"Buildings"> | Date | string
   }, "id">
 
@@ -2162,6 +2175,7 @@ export namespace Prisma {
     materialsFileName?: SortOrder
     screenshotDataUrl?: SortOrderInput | SortOrder
     materials?: SortOrder
+    checklist?: SortOrder
     createdAt?: SortOrder
     _count?: BuildingsCountOrderByAggregateInput
     _avg?: BuildingsAvgOrderByAggregateInput
@@ -2183,6 +2197,7 @@ export namespace Prisma {
     materialsFileName?: StringWithAggregatesFilter<"Buildings"> | string
     screenshotDataUrl?: StringNullableWithAggregatesFilter<"Buildings"> | string | null
     materials?: JsonWithAggregatesFilter<"Buildings">
+    checklist?: JsonWithAggregatesFilter<"Buildings">
     createdAt?: DateTimeWithAggregatesFilter<"Buildings"> | Date | string
   }
 
@@ -2196,6 +2211,7 @@ export namespace Prisma {
     materialsFileName: string
     screenshotDataUrl?: string | null
     materials: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -2209,6 +2225,7 @@ export namespace Prisma {
     materialsFileName: string
     screenshotDataUrl?: string | null
     materials: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -2222,6 +2239,7 @@ export namespace Prisma {
     materialsFileName?: StringFieldUpdateOperationsInput | string
     screenshotDataUrl?: NullableStringFieldUpdateOperationsInput | string | null
     materials?: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2235,6 +2253,7 @@ export namespace Prisma {
     materialsFileName?: StringFieldUpdateOperationsInput | string
     screenshotDataUrl?: NullableStringFieldUpdateOperationsInput | string | null
     materials?: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2248,6 +2267,7 @@ export namespace Prisma {
     materialsFileName: string
     screenshotDataUrl?: string | null
     materials: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -2261,6 +2281,7 @@ export namespace Prisma {
     materialsFileName?: StringFieldUpdateOperationsInput | string
     screenshotDataUrl?: NullableStringFieldUpdateOperationsInput | string | null
     materials?: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2274,6 +2295,7 @@ export namespace Prisma {
     materialsFileName?: StringFieldUpdateOperationsInput | string
     screenshotDataUrl?: NullableStringFieldUpdateOperationsInput | string | null
     materials?: JsonNullValueInput | InputJsonValue
+    checklist?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2367,6 +2389,7 @@ export namespace Prisma {
     materialsFileName?: SortOrder
     screenshotDataUrl?: SortOrder
     materials?: SortOrder
+    checklist?: SortOrder
     createdAt?: SortOrder
   }
 

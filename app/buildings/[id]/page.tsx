@@ -12,7 +12,7 @@ export default async function BuildingPage({
   params: Promise<{ id: string }>; // 1. Указываем, что params — это Promise
 }) {
   // 2. Ждем получения параметров
-  const { id } = await params; 
+  const { id } = await params;
 
   // 3. Используем уже готовую переменную id
   const building = await prisma.buildings.findUnique({
@@ -67,7 +67,11 @@ export default async function BuildingPage({
           </section>
         ) : null}
 
-        <BuildingChecklist materials={building.materials as MaterialRow[]} />
+        <BuildingChecklist
+          materials={building.materials as MaterialRow[]}
+          initialChecklist={building.checklist as any[]}
+          buildingId={building.id}
+        />
       </main>
     </div>
   );

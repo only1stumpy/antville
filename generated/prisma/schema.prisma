@@ -24,6 +24,7 @@ model Buildings {
   schematicFileName String
   materialsFileName String
   screenshotDataUrl String?
-  materials         Json
+  materials         Json // Исходный список ресурсов (статичный)
+  checklist         Json     @default("[]") // Текущий прогресс (динамичный)
   createdAt         DateTime @default(now())
 }
