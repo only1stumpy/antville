@@ -3,8 +3,13 @@ import Link from "next/link";
 import { getBuilding } from "@/lib/buildings";
 import BuildingChecklist from "./BuildingChecklist";
 
-export default function BuildingPage({ params }: { params: { id: string } }) {
-  const building = getBuilding(params.id);
+export default async function BuildingPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const building = getBuilding(id);
 
   if (!building) {
     return (
