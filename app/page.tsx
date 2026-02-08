@@ -70,8 +70,12 @@ export default function Home() {
         throw new Error("Не удалось сохранить постройку.");
       }
 
-      const data = (await response.json()) as { id: string };
-      router.push(`/buildings/${data.id}`);
+      const data = (await response.json()) as { building: { id: string } };
+      window.localStorage.setItem(
+        `antville-building:${data.building.id}`,
+        JSON.stringify(data.building)
+      );
+      router.push(`/buildings/${data.building.id}`);
     } catch (submitError) {
       setError(
         submitError instanceof Error

@@ -1,15 +1,43 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-import { getBuilding } from "@/lib/buildings";
 import BuildingChecklist from "./BuildingChecklist";
+import type { Building } from "@/lib/buildings";
 
-export default async function BuildingPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const building = getBuilding(id);
+export default function BuildingPage() {
+  const params = useParams<{ id: string }>();
+  const [building, setBuilding] = useState<Building | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const id = params?.id;
+    if (!id) {
+      setIsLoading(false);
+      return;
+    }
+
+    const stored = window.localStorage.getItem(`antville-building:${id}`);
+    if (stored) {
+      setBuilding(JSON.parse(stored) as Building);
+    }
+    setIsLoading(false);
+  }, [params]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100">
+        <div className="mx-auto max-w-4xl space-y-6">
+          <Link href="/" className="text-sm text-emerald-300 hover:underline">
+            ← Вернуться к форме
+          </Link>
+          <p className="text-slate-400">Загружаем данные постройки...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!building) {
     return (
@@ -20,7 +48,8 @@ export default async function BuildingPage({
           </Link>
           <h1 className="text-3xl font-semibold">Постройка не найдена</h1>
           <p className="text-slate-400">
-            Возможно, сервер был перезапущен или ссылка неверна.
+            Данные хранятся локально в браузере. Откройте страницу после отправки формы
+            на этом же устройстве.
           </p>
         </div>
       </div>

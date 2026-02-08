@@ -39,5 +39,5 @@ export async function POST(request: Request) {
     materials,
   });
 
-  return NextResponse.json({ id: record.id });
+  return NextResponse.json({ building: record });
 }
