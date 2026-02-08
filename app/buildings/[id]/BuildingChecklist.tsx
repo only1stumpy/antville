@@ -6,6 +6,7 @@ import { MaterialRow, toShulkers, toStacks } from "@/lib/materials";
 
 type ChecklistRow = MaterialRow & {
   gatheredBy: string;
+  isGathered: boolean;
 };
 
 type BuildingChecklistProps = {
@@ -18,7 +19,7 @@ const numberFormatter = new Intl.NumberFormat("ru-RU", {
 
 export default function BuildingChecklist({ materials }: BuildingChecklistProps) {
   const [rows, setRows] = useState<ChecklistRow[]>(() =>
-    materials.map((row) => ({ ...row, gatheredBy: "" }))
+    materials.map((row) => ({ ...row, gatheredBy: "", isGathered: false }))
   );
 
   const totals = useMemo(() => {
@@ -32,6 +33,14 @@ export default function BuildingChecklist({ materials }: BuildingChecklistProps)
   const updateGatheredBy = (item: string, value: string) => {
     setRows((prev) =>
       prev.map((row) => (row.item === item ? { ...row, gatheredBy: value } : row))
+    );
+  };
+
+  const toggleGathered = (item: string) => {
+    setRows((prev) =>
+      prev.map((row) =>
+        row.item === item ? { ...row, isGathered: !row.isGathered } : row
+      )
     );
   };
 
@@ -52,7 +61,8 @@ export default function BuildingChecklist({ materials }: BuildingChecklistProps)
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-slate-800">
-        <div className="grid grid-cols-[1.6fr_0.6fr_0.6fr_0.6fr_1fr] gap-2 bg-slate-950 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <div className="grid grid-cols-[0.4fr_1.6fr_0.6fr_0.6fr_0.6fr_1fr] gap-2 bg-slate-950 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <span>Собрано</span>
           <span>Блок</span>
           <span className="text-right">Количество</span>
           <span className="text-right">В стаках</span>
@@ -63,8 +73,16 @@ export default function BuildingChecklist({ materials }: BuildingChecklistProps)
           {rows.map((row) => (
             <div
               key={row.item}
-              className="grid grid-cols-[1.6fr_0.6fr_0.6fr_0.6fr_1fr] gap-2 px-4 py-3 text-sm text-slate-200"
+              className="grid grid-cols-[0.4fr_1.6fr_0.6fr_0.6fr_0.6fr_1fr] gap-2 px-4 py-3 text-sm text-slate-200"
             >
+              <label className="flex items-center justify-center">
+                <input
+                  type="checkbox"
+                  checked={row.isGathered}
+                  onChange={() => toggleGathered(row.item)}
+                  className="h-4 w-4 rounded border-slate-600 bg-slate-950 text-emerald-400"
+                />
+              </label>
               <span>{row.item}</span>
               <span className="text-right">{numberFormatter.format(row.total)}</span>
               <span className="text-right">{numberFormatter.format(toStacks(row.total))}</span>
