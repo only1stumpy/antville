@@ -6,9 +6,17 @@ import type { MaterialRow } from "@/lib/materials";
 
 export const dynamic = "force-dynamic";
 
-export default async function BuildingPage({ params }: { params: { id: string } }) {
-  const building = await prisma.building.findUnique({
-    where: { id: params.id },
+export default async function BuildingPage({
+  params,
+}: {
+  params: Promise<{ id: string }>; // 1. Указываем, что params — это Promise
+}) {
+  // 2. Ждем получения параметров
+  const { id } = await params; 
+
+  // 3. Используем уже готовую переменную id
+  const building = await prisma.buildings.findUnique({
+    where: { id: id },
   });
 
   if (!building) {
@@ -20,8 +28,8 @@ export default async function BuildingPage({ params }: { params: { id: string } 
           </Link>
           <h1 className="text-3xl font-semibold">Постройка не найдена</h1>
           <p className="text-slate-400">
-            Такой страницы нет в базе данных. Проверьте ссылку или создайте новую
-            постройку.
+            Такой страницы нет в базе данных. Проверьте ссылку или создайте
+            новую постройку.
           </p>
         </div>
       </div>

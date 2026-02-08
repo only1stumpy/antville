@@ -20,8 +20,18 @@ export async function POST(request: Request) {
   const materialsFile = formData.get("materials") as File | null;
   const screenshotFile = formData.get("screenshot") as File | null;
 
-  if (!name || Number.isNaN(x) || Number.isNaN(y) || Number.isNaN(z) || !schematic || !materialsFile) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  if (
+    !name ||
+    Number.isNaN(x) ||
+    Number.isNaN(y) ||
+    Number.isNaN(z) ||
+    !schematic ||
+    !materialsFile
+  ) {
+    return NextResponse.json(
+      { error: "Missing required fields" },
+      { status: 400 },
+    );
   }
 
   const materialsText = await materialsFile.text();
@@ -30,7 +40,7 @@ export async function POST(request: Request) {
     ? await fileToDataUrl(screenshotFile)
     : null;
 
-  const record = await prisma.building.create({
+  const record = await prisma.buildings.create({
     data: {
       name,
       x,
@@ -47,7 +57,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const buildings = await prisma.building.findMany({
+  const buildings = await prisma.buildings.findMany({
     orderBy: { createdAt: "desc" },
   });
 
